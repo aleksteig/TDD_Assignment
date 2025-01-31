@@ -20,6 +20,43 @@ import test from "./test.mjs";
 //#region function -----------------------------------------------------------------
 // Write your function her.
 
+function multiply (...a) {
+    
+    let minusCounter = 0;
+    let multipliedNumbers = 1;
+    let includesZero = 0;
+    let includesInfinity = 0;
+    
+    for(let i = 0; i < arguments.length; i++){
+        if(Number.isNaN(parseFloat(arguments[i]))){
+            return NaN;
+        }
+        if(arguments[i][0] == "-"){
+            minusCounter += 1;
+        }
+        if(arguments[i] == 0){
+            includesZero += 1;
+        }
+    }
+
+    if(includesZero > 0){
+        return 0;
+    } else if(includesInfinity > 0){
+        if(Number.isInteger(minusCounter/2)){
+            return Infinity;
+        } else {
+            return -Infinity;
+        }
+    }
+
+    for(let i = 0; i < arguments.length; i++){
+        multipliedNumbers *= arguments[i];
+    }
+
+    return multipliedNumbers;
+}
+
+console.log(multiply("Infinity", 1, -5, -3));
 
 
 //#endregion
