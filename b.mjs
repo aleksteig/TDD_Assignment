@@ -21,15 +21,19 @@ import test from "./test.mjs";
 // Write your function her.
 
 function formatName(name){
-    let currentName = name.trim();
-    let finalName = [];
-    if(name.toString() != name){
-        console.log("a");
+    let currentName;
+    if(typeof name == "string"){
+        currentName = name.trim();
+    } else {
         return null;
     }
     if(!/^[a-zA-Z0-9 ]*$/.test(name)){
         return null;
     }
+    if(currentName == ''){
+        return '';
+    }
+    let finalName = [];
     if(currentName[0].toUpperCase() != currentName[0]){
         finalName.push(currentName[0].toUpperCase())
     }
@@ -41,18 +45,10 @@ function formatName(name){
             finalName.push(currentName[i]);
         }
 
-        if(arguments == ''){
-            return '';
-        }
-    }
-    if(arguments == ''){
-        return '';
-    } else {
-        return finalName.join("");
     }
 
+    return finalName.join("");
 }
-
 
 //#endregion
 
@@ -63,6 +59,23 @@ function formatName(name){
 //#region Tests --------------------------------------------------------------------
 // Write your tests her.
 
+const tests = test("Name function");
 
+// Valid inputs
+tests.isEqual(formatName("apple bottom jeans"), "Apple Bottom Jeans", "Should return as Apple Bottom Jeans");
+tests.isEqual(formatName("boots with the fur"), "Boots With The Fur", "Should return as Boots With The Fur");
+tests.isEqual(formatName("with the fur"), "With The Fur", "Should return as With The Fur");
+
+// Invalid inputs
+tests.isEqual(formatName(0), null, 'Should return as null');
+tests.isEqual(formatName("$¤o p aaaa s"), null, 'Should return as null');
+tests.isEqual(formatName(' '), '', 'Should return as an empty string');
+
+// Edge cases
+tests.isEqual(formatName("  abc def ghi "), "Abc Def Ghi", "Should return as Abc Def Ghi");
+tests.isEqual(formatName(Infinity), null, "Should return as null");
+tests.isEqual(formatName(undefined), null, "Should return as null");
+tests.isEqual(formatName(NaN), null, "Should return as null");
+tests.isEqual(formatName(null), null, "Should return as null");
 
 //#endregion
