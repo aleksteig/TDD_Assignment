@@ -12,9 +12,35 @@ import test from "./test.mjs";
 
 function sequence(n) {
 
+    if (!Number.isInteger(n) || n < 0) {
+        return null;
+    }
+
+    let fibonacciNumberList = [];
+
+    while(fibonacciNumberList.length <= 20){
+
+        if (fibonacciNumberList.length < 1){
+            fibonacciNumberList.push(1);
+        }
+
+        for(let i = 0;  i <= 20; i++){
+            if(fibonacciNumberList.length > 1){
+                fibonacciNumberList.push(fibonacciNumberList[i] + fibonacciNumberList[i-1]);
+            } else {
+                fibonacciNumberList.push(1);
+            }
+        }
+        
+    }
+
+    fibonacciNumberList.unshift(0);
+    return fibonacciNumberList[n];
+
 }
 
 //#region Tests --------------------------------------------------------------------
+
 const tests = test("Sum function");
 
 // Basic cases
