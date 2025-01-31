@@ -24,6 +24,20 @@ import test from "./test.mjs";
 // Write your function her.
 
 function guessNumber(target, guess) {
+    if(guess == Infinity || guess == -Infinity || target == Infinity || target == -Infinity){
+        return "Not finite";
+    }
+    if(!Number.isFinite(target) || !Number.isFinite(guess)){
+        return null;
+    }
+
+    if(target > guess){
+        return "Too low";
+    } else if(target < guess){
+        return "Too high";
+    } else {
+        return "Correct!"
+    }
 
 }
 
@@ -32,15 +46,25 @@ function guessNumber(target, guess) {
 
 //#region Tests --------------------------------------------------------------------
 
+const tests = test("Guess number function");
+
 // Basic cases
-test.isEqual(guessNumber(10, 5), "Too low", "If target is 10 and guess is 5, return 'Too low'");
-test.isEqual(guessNumber(10, 15), "Too high", "If target is 10 and guess is 15, return 'Too high'");
-test.isEqual(guessNumber(10, 10), "Correct!", "If target is 10 and guess is 10, return 'Correct!'");
+tests.isEqual(guessNumber(10, 5), "Too low", "If target is 10 and guess is 5, return 'Too low'");
+tests.isEqual(guessNumber(10, 15), "Too high", "If target is 10 and guess is 15, return 'Too high'");
+tests.isEqual(guessNumber(10, 10), "Correct!", "If target is 10 and guess is 10, return 'Correct!'");
 
 // Invalid inputs
 
+tests.isEqual(guessNumber("aa", 10), null, "If target is aa and guess is 10, return null");
+tests.isEqual(guessNumber(10, "aa"), null, "If target is 10 and guess is aa, return null");
+tests.isEqual(guessNumber(10, []), null, "If target is 10 and guess is [], return null");
+tests.isEqual(guessNumber(10, undefined), null, "If target is 10 and guess is undefined, return null");
+tests.isEqual(guessNumber(10, NaN), null, "If target is 10 and guess is NaN, return null");
+tests.isEqual(guessNumber(10, null), null, "If target is 10 and guess is null, return null");
 
 // Edge cases
 
+tests.isEqual(guessNumber(10, Infinity), "Not finite", "If target is 10 and guess is Infinity, return Not finite");
+tests.isEqual(guessNumber(10, -Infinity), "Not finite", "If target is 10 and guess is Infinity, return Not finite");
 
 //#endregion
