@@ -20,6 +20,38 @@ import test from "./test.mjs";
 //#region function -----------------------------------------------------------------
 // Write your function her.
 
+function formatName(name){
+    let currentName = name.trim();
+    let finalName = [];
+    if(name.toString() != name){
+        console.log("a");
+        return null;
+    }
+    if(!/^[a-zA-Z0-9 ]*$/.test(name)){
+        return null;
+    }
+    if(currentName[0].toUpperCase() != currentName[0]){
+        finalName.push(currentName[0].toUpperCase())
+    }
+    for(let i = 1; i < currentName.length; i++){
+        
+        if(currentName[i-1] == ' '){
+            finalName.push(currentName[i].toUpperCase())
+        } else {
+            finalName.push(currentName[i]);
+        }
+
+        if(arguments == ''){
+            return '';
+        }
+    }
+    if(arguments == ''){
+        return '';
+    } else {
+        return finalName.join("");
+    }
+
+}
 
 
 //#endregion
